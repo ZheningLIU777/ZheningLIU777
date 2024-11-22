@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Dynamics-Aware Gaussian Splatting Streaming Towards Fast On-the-Fly Training for 4D Reconstruction">
+  <meta name="keywords" content="3DGS, 4D Reconstruction, Streaming">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DASS: Dynamics-Aware Gaussian Splatting Streaming </title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/rocket-1206.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Dynamics-Aware Gaussian Splatting Streaming Towards Fast On-the-Fly Training for 4D Reconstruction</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://www.liuzhening.top">Zhening Liu</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://zhenliuzju.github.io/huyingdong/">Yingdong Hu</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://xinjie-q.github.io/">Xinjie Zhang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://shaojiawei07.github.io/">Jiawei Shao</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://zhlinup.github.io/">Zehong Lin</a><sup>1 *</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://eejzhang.people.ust.hk/home.html">Jun Zhang</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Hong Kong University of Science and Technology,</span>
+            <span class="author-block"><sup>2</sup>Institute of Artificial Intelligence (TeleAI), China Telecom</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/abs/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://youtu.be/4ZUTpI6WRdQ"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://www.liuzhening.top"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming Soon)</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/horizontal_slide.png"> 
+      <h2 class="subtitle has-text-centered">
+        We propose <span class="dnerf">DASS</span>, a three-stage pipeline for streamable 4D reconstruction, supporting fast on-the-fly training and high-qaulity per-frame streaming.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            The recent development of 3D Gaussian Splatting (3DGS) has led to great interest in 4D dynamic spatial reconstruction from multi-view visual inputs. 
+            While existing approaches mainly rely on processing full-length multi-view videos for 4D reconstruction, there has been limited exploration 
+            of iterative online reconstruction methods that enable on-the-fly training and per-frame streaming.
+            Current 3DGS-based streaming methods treat the Gaussian primitives uniformly and constantly renew the densified Gaussians, 
+            thereby overlooking the difference between dynamic and static features and also neglecting the temporal continuity in the scene.
+          </p>
+          <p>
+            To address these limitations, we propose a novel three-stage pipeline for iterative streamable 4D dynamic spatial reconstruction. 
+            Our pipeline comprises a selective inheritance stage to preserve temporal continuity, a dynamics-aware shift stage for distinguishing 
+            dynamic and static primitives and optimizing their movements, and an error-guided densification stage to accommodate emerging objects. 
+            Our method achieves state-of-the-art performance in online 4D reconstruction, demonstrating a 20% improvement in 
+            on-the-fly training speed, superior representation quality, and real-time rendering capability.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <!-- EVA-Guassian Version -->
+        <!-- <div style="display: flex; justify-content: center;">   
+          <video width="100%" playsinline="" autoplay="" loop="" preload="" muted="" controls>
+            <source src="./static/videos/DASS_Video_.mp4" type="video/mp4">
+        </div> -->
+        <!-- Nerfiles Version -->
+        <video id="pipeline-video" controls playsinline height="100%">
+          <source src="./static/videos/DASS_Video_compressed.mp4"
+                  type="video/mp4">
+        </video>
+        <!-- Online Version -->
+        <!-- <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/4ZUTpI6WRdQ?si=Q7MZc0RRTkg7eEPF"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div> -->
+        <p style="font-size: 0.8em; margin-top: 5px;">
+            For HD video, please refer to <a href="https://youtu.be/4ZUTpI6WRdQ" target="_blank">YouTube</a> and <a href="https://www.bilibili.com/" target="_blank">Bilibili</a>.
+          </p>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<br><br>
+
+<div class="columns is-centered has-text-centered">
+    <h2 class="title is-3">Method Overview</h2>
+</div>
+
+
+
+<div class="container is-max-desktop">
+<!--/ Pipeline Overview -->
+      <div class="hero-body">
+        <!-- <h2 class="title is-3">Framework</h2> -->
+        <div class="content has-text-justified">
+          <img src="./static/images/pipeline_vert.png"> 
+          <p>
+            <b> Framework.</b> Overview of our proposed DASS framework.
+            The <b style="color: rgb(29, 204, 29);">selective inheritance stage</b> (Green) exploits the temporal continuity and adaptively preserves Gaussians from the previous frame. 
+            The <b style="color: rgb(0, 0, 255);">dynamics-aware shift stage</b> (Blue) distinguishes the dynamic and static elements and optimizes the deformations. 
+            The <b style="color: rgb(235, 235, 4);">error-guided densification stage</b> (Yellow) detects and densifies the areas with weak reconstruction based on positional gradients and distortions. 
+            Variables highlighted in <span style="color: red;">red</span> represent learnable parameters in each stage, whose training is significantly lightweight compared to tuning all Gaussian parameters.
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <div class="container is-max-desktop">
+      <div class="hero-body">
+        <div class="content has-text-justified">
+          <div class="columns is-centered has-text-centered">
+          <img src="./Scaffold-GS_ Structured 3D Gaussians for View-Adaptive Rendering_files/anchor_refine.png"> 
+          </div>
+          <p>
+            <b>Anchor refinement.</b> We propose an error-based anchor growing policy to reliably grow new anchors where neural Gaussians find significant. 
+            We quantize neural Gaussians into multi-resolution voxels and add new anchors to voxels with gradients larger than level-wise thresholds.
+            Our strategy effectively improves scene coverage without using excessive points.
+          </p>
+        </div>
+      </div>
+    </div> -->
+
+<br><br>
+
+
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered"> -->
+
+      <!-- Visual Effects. -->
+      <!-- <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Visual Effects</h2>
+          <p>
+            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
+            would be impossible without nerfies since it would require going through a wall.
+          </p>
+          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/dollyzoom-stacked.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div> -->
+      <!--/ Visual Effects. -->
+
+      <!-- Matting. -->
+      <!-- <div class="column">
+        <h2 class="title is-3">Matting</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              As a byproduct of our method, we can also solve the matting problem by ignoring
+              samples that fall outside of a bounding box during rendering.
+            </p>
+            <video id="matting-video" controls playsinline height="100%">
+              <source src="./static/videos/matting.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+
+        </div>
+      </div>
+    </div> -->
+    <!--/ Matting. -->
+
+    <!-- Animation. -->
+    <!-- <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Animation</h2> -->
+
+        <!-- Interpolating. -->
+        <!-- <h3 class="title is-4">Interpolating states</h3>
+        <div class="content has-text-justified">
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+        <div class="columns is-vcentered interpolation-panel">
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_start.jpg"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+            <p>Start Frame</p>
+          </div>
+          <div class="column interpolation-video-column">
+            <div id="interpolation-image-wrapper">
+              Loading...
+            </div>
+            <input class="slider is-fullwidth is-large is-info"
+                   id="interpolation-slider"
+                   step="1" min="0" max="100" value="0" type="range">
+          </div>
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_end.jpg"
+                 class="interpolation-image"
+                 alt="Interpolation end reference image."/>
+            <p class="is-bold">End Frame</p>
+          </div>
+        </div>
+        <br/> -->
+        <!--/ Interpolating. -->
+
+        <!-- Re-rendering. -->
+        <!-- <h3 class="title is-4">Re-rendering the input video</h3>
+        <div class="content has-text-justified">
+          <p>
+            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 width="75%">
+            <source src="./static/videos/replay.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <!--/ Re-rendering. -->
+
+    <!--  </div>
+    </div> -->
+    <!--/ Animation. -->
+
+
+  </div>
+</section>
+
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section> -->
+
+
+<footer class="footer thin-footer">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div> -->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Sincerecely thank the authors of <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> for the template of this website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
